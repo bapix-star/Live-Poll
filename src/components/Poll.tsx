@@ -48,3 +48,53 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
                 <circle cx="100" cy="100" r="90" />
               </clipPath>
             </defs>
+            
+            <circle cx="100" cy="100" r="90" fill="url(#noGrad)" opacity="0.8" />
+            
+            <g clipPath="url(#circleClip)">
+              <motion.g
+                initial={{ y: 200 }}
+                animate={{ y: 190 - (totalVotes === 0 ? 50 : yesPercentage) / 100 * 180 }}
+                transition={{ type: "spring", bounce: 0.2, duration: 2 }}
+              >
+                <motion.path 
+                  d="M 0 0 Q 50 12, 100 0 T 200 0 T 300 0 T 400 0 L 400 200 L 0 200 Z"
+                  fill="#34d399"
+                  opacity="0.5"
+                  animate={{ x: [0, -200] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                />
+              </motion.g>
+
+              <motion.g
+                initial={{ y: 200 }}
+                animate={{ y: 190 - (totalVotes === 0 ? 50 : yesPercentage) / 100 * 180 }}
+                transition={{ type: "spring", bounce: 0.2, duration: 2 }}
+              >
+                <motion.path 
+                  d="M 0 0 Q 50 -12, 100 0 T 200 0 T 300 0 T 400 0 L 400 200 L 0 200 Z"
+                  fill="url(#yesGrad)"
+                  opacity="0.9"
+                  animate={{ x: [-200, 0] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                />
+              </motion.g>
+
+              {[
+                { id: 1, x: 50, r: 4, dur: 2.5, delay: 0.2, drift: 10 },
+                { id: 2, x: 90, r: 3, dur: 3.2, delay: 1.5, drift: -8 },
+                { id: 3, x: 130, r: 5, dur: 2.8, delay: 0.8, drift: 12 },
+                { id: 4, x: 170, r: 2, dur: 3.5, delay: 2.1, drift: -5 },
+                { id: 5, x: 110, r: 4, dur: 2.2, delay: 0.5, drift: 8 }
+              ].map((b) => (
+                <motion.circle
+                  key={b.id}
+                  r={b.r}
+                  fill="rgba(255,255,255,0.7)"
+                  initial={{ x: b.x, y: 190, opacity: 0 }}
+                  animate={{ 
+                    y: [190, Math.max(20, 190 - (totalVotes === 0 ? 50 : yesPercentage) / 100 * 180)], 
+                    x: [b.x, b.x + b.drift],
+                    opacity: [0, 1, 0] 
+                  }}
+                  transition={{ repeat: Infinity, duration: b.dur, delay: b.delay, ease: "easeIn" }}
