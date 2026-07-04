@@ -198,3 +198,48 @@ export class StellarHelper {
       sendResponse = await this.server.sendTransaction(
         TransactionBuilder.fromXDR(signedTxXdr, NETWORK_PASSPHRASE)
       );
+    } catch (e: any) {
+      console.error("Submit error:", e);
+      throw new Error(`Failed to submit transaction: ${e.message}`);
+    }
+
+    if (sendResponse.status === 'ERROR') {
+      const errorStr = JSON.stringify(sendResponse);
+      if (errorStr.includes('tx_insufficient_balance')) {
+        throw new Error("Insufficient balance to complete the transaction.");
+      }
+      throw new Error(`Transaction failed: ${errorStr}`);
+    }
+
+    return await this.pollTransaction(sendResponse.hash);
+  }
+
+  private async getDummyAccount() {
+    return {
+        accountId: () => 'GAUTVVO7UG5S67XVVTF2KYD2SBIVVE623KEIMDY3OG3QNAGUVDZ2JO6J',
+        sequenceNumber: () => '1',
+        incrementSequenceNumber: () => {},
+    } as any;
+  }
+
+  private async pollTransaction(hash: string): Promise<string> {
+    const server = this.server;
+    let status = await server.getTransaction(hash);
+    
+    let delay = 1000;
+    for (let i = 0; i < 12; i++) {
+        if (status.status !== 'NOT_FOUND') {
+            break;
+        }
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        delay = Math.min(delay * 1.5, 5000); // Exponential backoff up to 5s max
+        status = await server.getTransaction(hash);
+    }
+
+    if (status.status === 'SUCCESS') {
+        return hash;
+    } else {
+        throw new Error(`Transaction failed on chain: ${JSON.stringify(status)}`);
+    }
+  }
+}
