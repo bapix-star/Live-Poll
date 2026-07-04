@@ -58,3 +58,12 @@ impl PollContract {
             env.storage().persistent().set(&DataKey::NoCount, &no_count);
             env.events().publish((symbol_short!("vote"), symbol_short!("no")), voter);
         }
+        Ok(())
+    }
+
+    pub fn get_results(env: Env) -> (u32, u32) {
+        let yes_count: u32 = env.storage().persistent().get(&DataKey::YesCount).unwrap_or(0);
+        let no_count: u32 = env.storage().persistent().get(&DataKey::NoCount).unwrap_or(0);
+        (yes_count, no_count)
+    }
+}
