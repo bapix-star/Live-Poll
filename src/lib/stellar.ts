@@ -118,3 +118,43 @@ export class StellarHelper {
           if (t1 !== "vote") continue;
           
           const choice = event.topic[1].sym().toString();
+          const voter = scValToNative(event.value) as string;
+          
+          votes.push({
+            voter,
+            choice,
+            ledger: parseInt(event.ledger as any) || event.ledger,
+            txHash: event.txHash
+          });
+        } catch (e) {
+        }
+      }
+      return votes.reverse();
+    } catch (e) {
+      console.error("Failed to fetch recent votes:", e);
+      return [];
+    }
+  }
+
+  async vote(publicKey: string, choice: boolean): Promise<string> {
+    const contract = new Contract(CONTRACT_ADDRESS);
+
+    let account;
+    try {
+      account = await this.server.getAccount(publicKey);
+    } catch (e: any) {
+      if (e?.response?.status === 404) {
+        throw new Error("Account not found. Please fund your wallet first!");
+      }
+      throw new Error(`Failed to fetch account: ${e.message || "Network error"}`);
+    }
+
+    const tx = new TransactionBuilder(account, {
+      fee: '1000',
+      networkPassphrase: NETWORK_PASSPHRASE,
+    })
+      .addOperation(
+        contract.call(
+          'vote',
+          new Address(publicKey).toScVal(),
+          xdr.ScVal.scvU32(choice ? 1 : 0)
