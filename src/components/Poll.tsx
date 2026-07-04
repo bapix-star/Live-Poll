@@ -98,3 +98,23 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
                     opacity: [0, 1, 0] 
                   }}
                   transition={{ repeat: Infinity, duration: b.dur, delay: b.delay, ease: "easeIn" }}
+                />
+              ))}
+            </g>
+
+            <circle cx="100" cy="100" r="90" fill="transparent" stroke="rgba(255,255,255,0.15)" strokeWidth="6" />
+            <circle cx="100" cy="100" r="90" fill="transparent" stroke="rgba(0,0,0,0.3)" strokeWidth="2" />
+          </svg>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
+            <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.8)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600 }}>Total</span>
+            <span style={{ fontSize: '2.5rem', fontWeight: 800, lineHeight: 1.1, textShadow: '0 2px 10px rgba(0,0,0,0.5)', color: '#fff' }}>{totalVotes}</span>
+          </div>
+        </div>
+
+        <div className="actions">
+          <button
+            onClick={() => handleVote(true)}
+            disabled={!publicKey || voteLoading !== null}
+            className="btn-vote yes"
+          >
+            <div className="btn-bg-glow" />
