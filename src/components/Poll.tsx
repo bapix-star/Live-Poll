@@ -118,3 +118,19 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
             className="btn-vote yes"
           >
             <div className="btn-bg-glow" />
+            {voteLoading === true ? <Loader2 className="icon-spin" size={24} /> : "Vote Yes"}
+          </button>
+
+          <button
+            onClick={() => handleVote(false)}
+            disabled={!publicKey || voteLoading !== null}
+            className="btn-vote no"
+          >
+            <div className="btn-bg-glow" />
+            {voteLoading === false ? <Loader2 className="icon-spin" size={24} /> : "Vote No"}
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
