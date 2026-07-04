@@ -158,3 +158,43 @@ export class StellarHelper {
           'vote',
           new Address(publicKey).toScVal(),
           xdr.ScVal.scvU32(choice ? 1 : 0)
+        )
+      )
+      .setTimeout(30)
+      .build();
+
+    let preparedTx;
+    try {
+      preparedTx = await this.server.prepareTransaction(tx);
+    } catch (e: any) {
+      const msg = e.message || "";
+      if (
+        msg.includes("Error(Contract, #1)") || 
+        msg.includes("InvalidAction") || 
+        msg.includes("UnreachableCodeReached") || 
+        msg.includes("WasmVm")
+      ) {
+        throw new Error("You have already voted!");
+      }
+      if (msg.includes("Error(Contract, #2)")) {
+        throw new Error("This poll is closed!");
+      }
+      if (msg.includes("Error(Contract, #3)")) {
+        throw new Error("Invalid voting option!");
+      }
+      throw new Error(`Transaction simulation failed: ${msg}`);
+    }
+
+    let signedTxXdr;
+    try {
+      const result = await StellarWalletsKit.signTransaction(preparedTx.toXDR());
+      signedTxXdr = result.signedTxXdr;
+    } catch (e: any) {
+      throw new Error("Transaction rejected by wallet.");
+    }
+
+    let sendResponse;
+    try {
+      sendResponse = await this.server.sendTransaction(
+        TransactionBuilder.fromXDR(signedTxXdr, NETWORK_PASSPHRASE)
+      );
