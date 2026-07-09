@@ -46,23 +46,31 @@ This project serves as a comprehensive submission for the Stellar Level 2 (Yello
 ## Required Links & Information
 
 - **Live Demo Link:** [Stellar Live Poll Vercel Deployment](https://stellar-live-poll-six.vercel.app/)
-- **Screenshot of Wallet Options:** 
-
-  ![Wallet Options Screenshot](demo/img/multiple-wallet-connect-interface.png) 
-  *(Note: Wallet selector supports Freighter, xBull, and Lobstr)*
+- **Screenshot of Wallet Options:** <br>
+  *A unified modal powered by StellarWalletsKit allowing connection via Freighter, xBull, or Lobstr.*<br>
+  <img src="demo/img/multiple-wallet-connect-interface.png" alt="Wallet Options Screenshot" width="500" />
 - **Deployed Contract Address:** `CBBKRRX4JUV2WABG43LIBU77ZXSZ5D3RXLPXUJA4M3LQM7K2XLMOHWMJ`
 - **Transaction Hash of a contract call:** [`386bd2d2f1b0e64329d8b1275f8bdc963c37719cb0767615801e7996ba2c4155`](https://stellar.expert/explorer/testnet/tx/386bd2d2f1b0e64329d8b1275f8bdc963c37719cb0767615801e7996ba2c4155)
 
-## Visual Walkthrough
+## 📸 Visual Walkthrough
 
-### The Polling Interface
-<img src="demo/img/poll-grapichs-card.png" alt="Poll Graphics Card" width="100%" />
+### 🗳️ The Polling Interface
+*Users are presented with a clean, animated pie-chart representing the current on-chain vote distribution. Built using Framer Motion.*
+<div align="center">
+  <img src="demo/img/poll-grapichs-card.png" alt="Poll Graphics Card" width="800" />
+</div>
 
-### Mobile Optimized View
-<img src="demo/img/mobile-responsive.png" alt="Mobile Responsive View" width="100%" />
+### 📱 Mobile Optimized View
+*The layout is fully responsive, ensuring mobile users can connect their wallets and cast votes seamlessly.*
+<div align="center">
+  <img src="demo/img/mobile-responsive.png" alt="Mobile Responsive View" width="400" />
+</div>
 
-### On-Chain Transaction Success
-<img src="demo/img/transaction-success.png" alt="Transaction Success Explorer" width="100%" />
+### 🔗 On-Chain Transaction Success
+*Upon voting, transactions are processed and signed through the wallet extension. The success state provides a direct link to the Stellar Testnet Explorer.*
+<div align="center">
+  <img src="demo/img/transaction-success.png" alt="Transaction Success Explorer" width="800" />
+</div>
 
 ## Architecture Overview
 
