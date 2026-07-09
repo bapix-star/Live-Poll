@@ -102,6 +102,19 @@ The application has been engineered to handle critical edge cases gracefully dur
 
 ---
 
+## 🧪 Automated CI/CD & Testing
+
+The project implements a strict CI/CD pipeline via GitHub Actions to ensure maximum production safety:
+
+<div align="center">
+  <img src="demo/img/ci-cd.png" alt="CI/CD Pipeline Verification" width="800" />
+</div>
+
+*   **Contract Tests**: Local Rust tests (`cargo test`) guarantee robust smart contract logic (e.g., voting bounds, duplication checks, and state storage).
+*   **Frontend Build**: The pipeline ensures no regression breaks the Next.js production build process on every push.
+
+---
+
 ## ⚙️ Smart Contract Architecture
 
 The application utilizes a robust client-serverless architecture mapping Next.js directly to the Soroban RPC.
@@ -159,18 +172,7 @@ chmod +x deploy.sh
 ```
 *Note: Update your `.env.local` with the new Contract ID generated after deployment.*
 
----
 
-## 🧪 Automated CI/CD & Testing
-
-The project implements a strict CI/CD pipeline via GitHub Actions to ensure maximum production safety:
-
-<div align="center">
-  <img src="demo/img/ci-cd.png" alt="CI/CD Pipeline Verification" width="800" />
-</div>
-
-*   **Contract Tests**: Local Rust tests (`cargo test`) guarantee robust smart contract logic (e.g., voting bounds, duplication checks, and state storage).
-*   **Frontend Build**: The pipeline ensures no regression breaks the Next.js production build process on every push.
 
 ---
 
