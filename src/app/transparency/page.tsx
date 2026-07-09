@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { StellarHelper } from "@/lib/stellar";
 import { ShieldCheck, Users, Activity, BarChart3, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
-import "../globals.css"; // Ensure globals are imported
+import "../globals.css";
 
 export default function TransparencyPage() {
   const [publicKey, setPublicKey] = useState<string | null>(null);

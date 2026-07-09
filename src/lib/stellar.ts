@@ -232,7 +232,7 @@ export class StellarHelper {
             break;
         }
         await new Promise((resolve) => setTimeout(resolve, delay));
-        delay = Math.min(delay * 1.5, 5000); // Exponential backoff up to 5s max
+        delay = Math.min(delay * 1.5, 5000);
         status = await server.getTransaction(hash);
     }
 

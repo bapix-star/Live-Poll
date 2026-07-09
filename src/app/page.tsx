@@ -22,7 +22,7 @@ export default function Home() {
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [knownVotedStatus, setKnownVotedStatus] = useState<boolean>(false);
 
-  // Compute personalized transparency data
+
   const userRecentVote = publicKey 
     ? recentVotes.find(v => v.voter === publicKey) 
     : undefined;
