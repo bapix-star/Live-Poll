@@ -12,7 +12,7 @@ stellar contract build
 echo "2️⃣  Deploying to Stellar Testnet..."
 # Ensure the identity 'alice' exists. If not, it will prompt or fail, but this is standard overkill script.
 CONTRACT_ID=$(stellar contract deploy \
-  --wasm target/wasm32-unknown-unknown/release/poll.wasm \
+  --wasm target/wasm32v1-none/release/poll.wasm \
   --source default \
   --network testnet)
 

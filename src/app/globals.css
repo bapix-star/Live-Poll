@@ -755,6 +755,31 @@ h1, h2, h3, .nav-brand, .label-value, .history-title {
   .desktop-only { display: none !important; }
   .mobile-menu-btn { display: block; }
   
+  .navbar {
+    padding: 0.75rem 1rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+  
+  .nav-brand {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  
+  .nav-actions {
+    gap: 0.5rem;
+  }
+  
+  .wallet-badge {
+    padding: 0.5rem !important;
+    width: auto !important;
+    border-radius: 50%;
+  }
+  
+  .wallet-badge span, .wallet-badge div {
+    display: none !important;
+  }
+  
   .stats-grid { grid-template-columns: 1fr; }
   .personal-card { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
   .stats-modal { padding: 1.5rem; }
