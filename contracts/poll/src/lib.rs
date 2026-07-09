@@ -94,5 +94,45 @@ mod test {
         let results = client.get_results();
         assert_eq!(results, (1, 1));
     }
+
+    #[test]
+    fn test_error_already_voted() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, PollContract);
+        let client = PollContractClient::new(&env, &contract_id);
+        let user = Address::generate(&env);
+        env.mock_all_auths();
+
+        client.vote(&user, &1);
+        
+        let result = client.try_vote(&user, &1);
+        assert_eq!(result, Err(Ok(PollError::AlreadyVoted)));
+    }
+
+    #[test]
+    fn test_error_invalid_option() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, PollContract);
+        let client = PollContractClient::new(&env, &contract_id);
+        let user = Address::generate(&env);
+        env.mock_all_auths();
+
+        let result = client.try_vote(&user, &5);
+        assert_eq!(result, Err(Ok(PollError::InvalidOption)));
+    }
+
+    #[test]
+    fn test_error_poll_closed() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, PollContract);
+        let client = PollContractClient::new(&env, &contract_id);
+        let user = Address::generate(&env);
+        env.mock_all_auths();
+
+        client.close_poll();
+        
+        let result = client.try_vote(&user, &1);
+        assert_eq!(result, Err(Ok(PollError::PollClosed)));
+    }
 }
 
