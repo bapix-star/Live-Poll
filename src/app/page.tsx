@@ -19,6 +19,15 @@ export default function Home() {
   const [voteLoading, setVoteLoading] = useState<boolean | null>(null);
   const [status, setStatus] = useState<{ type: 'error' | 'success' | 'pending'; message: string } | null>(null);
   const [isHoveringWallet, setIsHoveringWallet] = useState(false);
+  const [isStatsOpen, setIsStatsOpen] = useState(false);
+  const [knownVotedStatus, setKnownVotedStatus] = useState<boolean>(false);
+
+  // Compute personalized transparency data
+  const userRecentVote = publicKey 
+    ? recentVotes.find(v => v.voter === publicKey) 
+    : undefined;
+  const hasVoted = !!userRecentVote || knownVotedStatus;
+  const userVoteChoice = (userRecentVote?.choice as 'Yes' | 'No') || 'Hidden (Archived Ledger)';
 
   useEffect(() => {
     const h = new StellarHelper();
@@ -101,6 +110,7 @@ export default function Home() {
       let errorMsg = e.message || "An unknown error occurred.";
       if (errorMsg.includes("Already voted") || errorMsg.includes("You have already voted!")) {
         errorMsg = "You have already voted!";
+        setKnownVotedStatus(true);
       } else if (errorMsg.includes("rejected")) {
         errorMsg = "Transaction was rejected in the wallet.";
       } else if (errorMsg.length > 80) {
@@ -143,6 +153,8 @@ export default function Home() {
           publicKey={publicKey}
           voteLoading={voteLoading}
           handleVote={handleVote}
+          hasVoted={hasVoted}
+          userVoteChoice={userVoteChoice}
         />
 
         <ActivityFeed recentVotes={recentVotes} />

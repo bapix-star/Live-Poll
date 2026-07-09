@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Loader2, ThumbsUp, ThumbsDown, UserCheck } from "lucide-react";
 
 interface PollProps {
   totalVotes: number;
@@ -7,9 +7,11 @@ interface PollProps {
   publicKey: string | null;
   voteLoading: boolean | null;
   handleVote: (choice: boolean) => void;
+  hasVoted: boolean;
+  userVoteChoice: string | null;
 }
 
-export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handleVote }: PollProps) {
+export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handleVote, hasVoted, userVoteChoice }: PollProps) {
   return (
     <section id="poll" className="poll-section">
       <div className="poll-container">
@@ -17,6 +19,16 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
           <h2 style={{ fontSize: '2rem', fontWeight: 600, marginBottom: '0.5rem', lineHeight: 1.2 }}>
             Should Soroban replace traditional financial systems?
           </h2>
+          {publicKey && hasVoted && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="my-vote-badge"
+            >
+              <UserCheck size={16} /> 
+              You voted {userVoteChoice === 'Hidden (Archived Ledger)' ? 'but choice is archived by the network' : userVoteChoice}
+            </motion.div>
+          )}
           <p style={{ color: 'var(--secondary-text)' }}>
             Live on-chain results
           </p>
