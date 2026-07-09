@@ -8,7 +8,7 @@
   </p>
 
   <p align="center">
-    <a href="https://stellar-live-poll-six.vercel.app/"><strong>Live Demo</strong></a><br><br>
+    <h3><a href="https://live-poll-peach.vercel.app/" target="_blank">🚀 <strong>View Live Demo</strong> 🚀</a></h3><br>
     <a href="#-core-challenge-requirements-highlighted">Level 2 (Yellow Belt) Submission</a> •
     <a href="#-smart-contract-architecture">View Contract</a> •
     <a href="#-local-setup--deployment">Get Started</a>
