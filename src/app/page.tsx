@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { StellarHelper, VoteEvent } from "@/lib/stellar";
+import { StellarHelper, VoteEvent, CONTRACT_ADDRESS } from "@/lib/stellar";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Poll } from "@/components/Poll";
@@ -70,8 +70,8 @@ export default function Home() {
       setPublicKey(pk);
     } catch (e: any) {
       const msg = e?.message || "Failed to connect wallet.";
-      if (msg.toLowerCase().includes("not installed")) {
-        setStatus({ type: 'error', message: "Wallet not found. Please install Freighter." });
+      if (msg.toLowerCase().includes("not installed") || msg.toLowerCase().includes("not found")) {
+        setStatus({ type: 'error', message: "Wallet not found. Please install Freighter or another compatible wallet." });
       } else {
         setStatus({ type: 'error', message: msg });
       }
@@ -152,7 +152,7 @@ export default function Home() {
           <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
             <a href="https://developers.stellar.org/docs/smart-contracts" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--secondary-text)', textDecoration: 'none' }}>Documentation</a>
             <a href="https://github.com/late-cat/Stellar-Live-Poll" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--secondary-text)', textDecoration: 'none' }}>Source Code</a>
-            <a href="https://stellar.expert/explorer/testnet/contract/CDLCLCOYFQC2DXGHWGCST4FWQOANS3QBXPSC3P2Q3D4JXWCEC7HTF7KP" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--secondary-text)', textDecoration: 'none' }}>Testnet Explorer</a>
+            <a href={`https://stellar.expert/explorer/testnet/contract/${CONTRACT_ADDRESS}`} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--secondary-text)', textDecoration: 'none' }}>Testnet Explorer</a>
           </div>
         </footer>
 
