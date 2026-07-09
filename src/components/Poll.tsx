@@ -19,16 +19,6 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
           <h2 style={{ fontSize: '2rem', fontWeight: 600, marginBottom: '0.5rem', lineHeight: 1.2 }}>
             Should Soroban replace traditional financial systems?
           </h2>
-          {publicKey && hasVoted && (
-            <motion.div 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="my-vote-badge"
-            >
-              <UserCheck size={16} /> 
-              You voted {userVoteChoice === 'Hidden (Archived Ledger)' ? 'but choice is archived by the network' : userVoteChoice}
-            </motion.div>
-          )}
           <p style={{ color: 'var(--secondary-text)' }}>
             Live on-chain results
           </p>
@@ -123,25 +113,49 @@ export function Poll({ totalVotes, yesPercentage, publicKey, voteLoading, handle
           </div>
         </div>
 
-        <div className="actions">
-          <button
-            onClick={() => handleVote(true)}
-            disabled={!publicKey || voteLoading !== null}
-            className="btn-vote yes"
+        {publicKey && hasVoted ? (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center', 
+              gap: '1rem', 
+              marginTop: '1.5rem', 
+              padding: '1.5rem', 
+              background: 'rgba(255,255,255,0.02)', 
+              borderRadius: '20px', 
+              border: '1px solid rgba(255,255,255,0.05)' 
+            }}
           >
-            <div className="btn-bg-glow" />
-            {voteLoading === true ? <Loader2 className="icon-spin" size={24} /> : "Vote Yes"}
-          </button>
+            <span style={{ color: 'var(--secondary-text)', fontSize: '0.875rem' }}>Thank you for participating in network consensus!</span>
+            <div className="my-vote-badge" style={{ margin: 0, fontSize: '1rem' }}>
+              <UserCheck size={18} /> 
+              You voted {userVoteChoice === 'Hidden (Archived Ledger)' ? 'but choice is archived by the network' : userVoteChoice}
+            </div>
+          </motion.div>
+        ) : (
+          <div className="actions">
+            <button
+              onClick={() => handleVote(true)}
+              disabled={!publicKey || voteLoading !== null}
+              className="btn-vote yes"
+            >
+              <div className="btn-bg-glow" />
+              {voteLoading === true ? <Loader2 className="icon-spin" size={24} /> : "Vote Yes"}
+            </button>
 
-          <button
-            onClick={() => handleVote(false)}
-            disabled={!publicKey || voteLoading !== null}
-            className="btn-vote no"
-          >
-            <div className="btn-bg-glow" />
-            {voteLoading === false ? <Loader2 className="icon-spin" size={24} /> : "Vote No"}
-          </button>
-        </div>
+            <button
+              onClick={() => handleVote(false)}
+              disabled={!publicKey || voteLoading !== null}
+              className="btn-vote no"
+            >
+              <div className="btn-bg-glow" />
+              {voteLoading === false ? <Loader2 className="icon-spin" size={24} /> : "Vote No"}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
