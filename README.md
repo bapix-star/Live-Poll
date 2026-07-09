@@ -32,10 +32,16 @@ This project was built explicitly to fulfill the **Stellar Level 2 (Yellow Belt)
 - **Support:** Users can connect securely using **Freighter**, **xBull**, or **Lobstr** wallets.
 
 ### 2. Deep Error Handling (3 Specific Types)
-The application has been engineered to handle critical edge cases gracefully during the transaction lifecycle:
-- **Wallet Not Found:** Detects missing wallet extensions and prompts the user with a specific UI error toast to install a compatible wallet.
-- **Transaction Rejected:** Safely catches "Transaction rejected by wallet" errors (when a user declines the signature) without breaking the application state.
-- **Insufficient Balance:** Specifically captures and notifies users of `tx_insufficient_balance` when attempting to cast a vote without enough Testnet XLM to cover the fee.
+The application has been engineered to handle critical edge cases gracefully during the transaction lifecycle. **Reviewers can verify these directly in the Live Demo:**
+- **Wallet Not Found:** 
+  - *How to test:* Open the live link in an Incognito/Private window (where Freighter is not installed) and attempt to connect.
+  - *Result:* The UI catches the missing extension and displays a toast: `"Wallet not found. Please install Freighter..."`
+- **Transaction Rejected:** 
+  - *How to test:* Connect a valid wallet, click "Vote Yes", and when the wallet signature pop-up appears, click **Reject**.
+  - *Result:* The UI catches the user decline event and displays a toast: `"Transaction was rejected in the wallet."`
+- **Insufficient Balance:** 
+  - *How to test:* Connect a fresh wallet containing **0 Testnet XLM**, and attempt to cast a vote.
+  - *Result:* The UI submits the transaction, intercepts the `tx_insufficient_balance` Horizon error, and displays a toast: `"Insufficient balance to complete the transaction."`
 
 ### 3. Contract Deployed on Testnet
 - **Implementation:** A custom Rust Soroban smart contract has been successfully deployed to the Stellar Testnet.
