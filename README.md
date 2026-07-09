@@ -43,6 +43,11 @@ The application has been engineered to handle critical edge cases gracefully dur
   - *How to test:* Connect a fresh wallet containing **0 Testnet XLM**, and attempt to cast a vote.
   - *Result:* The UI submits the transaction, intercepts the `tx_insufficient_balance` Horizon error, and displays a toast: `"Insufficient balance to complete the transaction."`
 
+*Additionally, all custom smart contract errors (`AlreadyVoted`, `PollClosed`, `InvalidOption`) are covered by passing local cargo unit tests:*
+<div align="center">
+  <img src="demo/img/test-success.png" alt="Local Contract Tests Passing" width="600" />
+</div>
+
 ### 3. Contract Deployed on Testnet
 - **Implementation:** A custom Rust Soroban smart contract has been successfully deployed to the Stellar Testnet.
 - **Contract ID:** `CBBKRRX4JUV2WABG43LIBU77ZXSZ5D3RXLPXUJA4M3LQM7K2XLMOHWMJ`
