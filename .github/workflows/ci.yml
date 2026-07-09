@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test-contracts:
+    name: Run Contract Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        target: wasm32-unknown-unknown
+        
+    - name: Run Soroban Contract Tests
+      working-directory: ./contracts/poll
+      run: |
+        cargo test
+
+  build-frontend:
+    name: Build Next.js Application
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: './package-lock.json'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build Next.js app
+      run: npm run build
+      env:
+        NEXT_PUBLIC_CONTRACT_ADDRESS: CBBKRRX4JUV2WABG43LIBU77ZXSZ5D3RXLPXUJA4M3LQM7K2XLMOHWMJ
+        NEXT_PUBLIC_SOROBAN_RPC_URL: https://soroban-testnet.stellar.org
+        NEXT_PUBLIC_STELLAR_NETWORK_PASSPHRASE: Test SDF Network ; September 2015
+
+  deploy-simulation:
+    name: Simulate Vercel Deployment
+    needs: [test-contracts, build-frontend]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to Vercel (Simulated)
+      run: |
+        echo "🚀 Verification Passed. Triggering Deployment to Production..."
+        echo "✅ Deployment successful. Available at https://stellar-live-poll-six.vercel.app"

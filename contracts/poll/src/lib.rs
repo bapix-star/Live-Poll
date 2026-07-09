@@ -67,3 +67,32 @@ impl PollContract {
         (yes_count, no_count)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use soroban_sdk::{testutils::Address as _, Env};
+
+    #[test]
+    fn test_voting() {
+        let env = Env::default();
+        let contract_id = env.register_contract(None, PollContract);
+        let client = PollContractClient::new(&env, &contract_id);
+
+        let user1 = Address::generate(&env);
+        let user2 = Address::generate(&env);
+
+        env.mock_all_auths();
+
+        // Vote Yes
+        client.vote(&user1, &1);
+        let results = client.get_results();
+        assert_eq!(results, (1, 0));
+
+        // Vote No
+        client.vote(&user2, &0);
+        let results = client.get_results();
+        assert_eq!(results, (1, 1));
+    }
+}
+

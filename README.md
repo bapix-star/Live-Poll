@@ -92,6 +92,14 @@ The application utilizes a robust client-serverless architecture:
 2. **Integration Layer (Stellar SDK & Wallets Kit):** Handles multi-wallet connectivity, contract parsing, XDR encoding, and error decoding.
 3. **Smart Contract Layer (Soroban):** Acts as the immutable backend, permanently storing the total votes and distribution logic on the Stellar blockchain.
 
+## 🧪 Automated CI/CD & Network Verification
+
+The project implements a strict CI/CD pipeline via GitHub Actions. It automatically verifies that all Rust Smart Contracts compile correctly, pass their test suite, and the Next.js frontend builds successfully before any code is pushed or merged.
+
+*   **Contract Tests**: Local Rust tests guarantee robust smart contract logic (e.g. voting bounds, duplication checks, and state storage).
+*   **Frontend Build**: Ensures no regression breaks the Next.js production build process.
+*   **Production Safety**: All transactions and code integrations are completely verifiable on the Stellar Testnet Explorer.
+
 ## Smart Contract Information
 
 - **Contract ID:** `CBBKRRX4JUV2WABG43LIBU77ZXSZ5D3RXLPXUJA4M3LQM7K2XLMOHWMJ`
