@@ -148,6 +148,10 @@ chmod +x deploy.sh
 
 The project implements a strict CI/CD pipeline via GitHub Actions to ensure maximum production safety:
 
+<div align="center">
+  <img src="demo/img/ci-cd.png" alt="CI/CD Pipeline Verification" width="800" />
+</div>
+
 *   **Contract Tests**: Local Rust tests (`cargo test`) guarantee robust smart contract logic (e.g., voting bounds, duplication checks, and state storage).
 *   **Frontend Build**: The pipeline ensures no regression breaks the Next.js production build process on every push.
 
