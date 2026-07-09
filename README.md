@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="demo/img/hero-1.png" alt="Stellar Live Poll Hero" width="100%" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 20px;" />
+  <img src="demo/img/hero.png" alt="Stellar Live Poll Hero" width="100%" style="border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); margin-bottom: 20px;" />
   
   <h1 align="center">Stellar Live Poll</h1>
   
@@ -83,9 +83,15 @@ The application has been engineered to handle critical edge cases gracefully dur
 </div>
 
 ### 📱 Mobile Optimized View
-*The layout is fully responsive, ensuring mobile users can connect their wallets and cast votes seamlessly.*
+*The layout is fully responsive, featuring a sleek horizontal navbar and hamburger menu, ensuring mobile users can connect their wallets and cast votes seamlessly.*
 <div align="center">
-  <img src="demo/img/mobile-responsive.png" alt="Mobile Responsive View" width="400" />
+  <img src="demo/img/mobile-ui.png" alt="Mobile Responsive View" width="400" />
+</div>
+
+### 🔍 Immutable Transparency Dashboard
+*A dedicated dashboard providing a complete voter ledger mapped to the Stellar Testnet. It features absolute privacy by masking specific voter choices while retaining on-chain cryptographic verifiability.*
+<div align="center">
+  <img src="demo/img/transaparancy.png" alt="Transparency Dashboard" width="800" />
 </div>
 
 ### 🔗 On-Chain Transaction Success
